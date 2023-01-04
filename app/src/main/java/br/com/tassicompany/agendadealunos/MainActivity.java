@@ -3,6 +3,8 @@ package br.com.tassicompany.agendadealunos;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,15 +24,12 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         List<String> alunos = new ArrayList<>(Arrays.asList("Tassi", "Marcia", "Carol"));
-        TextView aluno1 = findViewById(R.id.tvAluno1);
-        TextView aluno2 = findViewById(R.id.tvAluno2);
-        TextView aluno3 = findViewById(R.id.tvAluno3);
 
-        aluno1.setText(alunos.get(0));
-        aluno2.setText(alunos.get(1));
-        aluno3.setText(alunos.get(2));
+        ListView listaAlunos = findViewById(R.id.activity_main_lista_alunos);
 
-
+        listaAlunos.setAdapter(new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1,
+                alunos));
 
     }
 }
