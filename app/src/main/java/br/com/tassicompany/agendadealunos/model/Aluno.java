@@ -2,8 +2,11 @@ package br.com.tassicompany.agendadealunos.model;
 
 import androidx.annotation.NonNull;
 
-public class Aluno {
+import java.io.Serializable;
 
+public class Aluno implements Serializable {
+
+    int id = 0;
     String nome;
     String telefone;
     String email;
@@ -38,9 +41,14 @@ public class Aluno {
         this.email = endereco;
     }
 
+    public void setId(int id) { this.id = id; }
+
+    public int getId() {return id; }
+
     @NonNull
     @Override
     public String toString() {
         return nome;
     }
+
 }

@@ -1,5 +1,6 @@
 package br.com.tassicompany.agendadealunos.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,8 @@ public class CadastroActivity extends AppCompatActivity {
     private EditText etTelefone;
     private EditText etEmail;
     private final AlunoDAO alunoDAO = new AlunoDAO();
+    private String email;
+    private Aluno alunoCadastrado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +31,18 @@ public class CadastroActivity extends AppCompatActivity {
         inicializacaoDosCampos();
 
         configuraBotaoSalvar();
+
+        Intent dados = getIntent();
+        if (dados.hasExtra("aluno")){
+            alunoCadastrado = (Aluno) dados.getSerializableExtra("aluno");
+        }
     }
 
     private void configuraBotaoSalvar() {
         Button btnSalvar = findViewById(R.id.btn_salvar);
         btnSalvar.setOnClickListener(view -> {
-            Aluno aluno = criaAluno();
-            salvaAluno(aluno);
+            preencheAluno();
+            alunoDAO.editarAluno(alunoCadastrado);
         });
     }
 
@@ -50,13 +58,14 @@ public class CadastroActivity extends AppCompatActivity {
         finish();
     }
 
-    @NonNull
-    private Aluno criaAluno() {
+        private void preencheAluno() {
         String nome = etNome.getText().toString();
         String telefone = etTelefone.getText().toString();
         String email = etEmail.getText().toString();
 
-        Aluno aluno = new Aluno(nome, telefone, email);
-        return aluno;
+        alunoCadastrado.setNome(nome);
+        alunoCadastrado.setTelefone(telefone);
+        alunoCadastrado.setEmail(email);
+
     }
 }
