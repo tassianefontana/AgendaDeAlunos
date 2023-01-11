@@ -16,26 +16,39 @@ import br.com.tassicompany.agendadealunos.dao.AlunoDAO;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TITULO_APPBAR = "Lista de alunos";
+    private final AlunoDAO alunoDAO = new AlunoDAO();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Lista de alunos");
+        setTitle(TITULO_APPBAR);
 
-        FloatingActionButton botaoCadastrarAluno = findViewById(R.id.activity_main_fab_addAlunos);
-
-        botaoCadastrarAluno.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, CadastroActivity.class));
-            }
-        });
+        configuraNovoAluno();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        AlunoDAO alunoDAO = new AlunoDAO();
+        configuraLista();
+    }
+
+    private void configuraNovoAluno() {
+        FloatingActionButton botaoCadastrarAluno = findViewById(R.id.activity_main_fab_addAlunos);
+        botaoCadastrarAluno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abreCadastroActivity();
+            }
+        });
+    }
+
+    private void abreCadastroActivity() {
+        startActivity(new Intent(this, CadastroActivity.class));
+    }
+
+    private void configuraLista() {
         ListView listaAlunos = findViewById(R.id.activity_main_lista_alunos);
         listaAlunos.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1,
