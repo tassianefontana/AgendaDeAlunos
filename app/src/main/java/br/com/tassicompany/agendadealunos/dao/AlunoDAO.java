@@ -1,5 +1,7 @@
 package br.com.tassicompany.agendadealunos.dao;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,21 +15,30 @@ public class AlunoDAO {
     public void salvarAluno(Aluno aluno) {
         aluno.setId(contadorDeId);
         listaAlunos.add(aluno);
+        atualizaId();
+    }
+
+    private void atualizaId() {
         contadorDeId++;
     }
 
     public void editarAluno(Aluno aluno) {
-        Aluno alunoEncontrado = null;
+        Aluno alunoEncontrado = buscaAlunoPeloId(aluno);
+
+        if (alunoEncontrado != null) {
+            int posicaoDoAluno = listaAlunos.indexOf(alunoEncontrado);
+            listaAlunos.set(posicaoDoAluno, aluno);
+        }
+    }
+
+    @Nullable
+    private Aluno buscaAlunoPeloId(Aluno aluno) {
         for (Aluno a : listaAlunos) {
             if (a.getId() == aluno.getId()) {
-                alunoEncontrado = a;
-            }
-
-            if(alunoEncontrado != null){
-                int posicaoDoAluno = listaAlunos.indexOf(alunoEncontrado);
-                listaAlunos.set(posicaoDoAluno, aluno);
+                return a;
             }
         }
+        return null;
     }
 
     public List<Aluno> getAlunos() {
@@ -35,5 +46,4 @@ public class AlunoDAO {
         //de modificar os elementos da lista.
         return new ArrayList<>(listaAlunos);
     }
-
 }

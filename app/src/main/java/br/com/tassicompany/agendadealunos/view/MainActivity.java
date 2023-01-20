@@ -1,10 +1,11 @@
 package br.com.tassicompany.agendadealunos.view;
 
+import static br.com.tassicompany.agendadealunos.view.ConstantesActivities.CHAVE_ALUNO;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -13,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.Serializable;
 import java.util.List;
 
 import br.com.tassicompany.agendadealunos.R;
@@ -23,7 +23,7 @@ import br.com.tassicompany.agendadealunos.model.Aluno;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Lista de alunos";
-    public static final String TAG = MainActivity.class.getSimpleName();
+    public final String TAG = MainActivity.class.getSimpleName();
     private final AlunoDAO alunoDAO = new AlunoDAO();
 
     @Override
@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
         configuraNovoAluno();
 
-        alunoDAO.salvarAluno(new Aluno("Tassiane","41 99999999",
+        alunoDAO.salvarAluno(new Aluno("Tassiane", "41 99999999",
                 "tassiane.fontana@gmail.com"));
-        alunoDAO.salvarAluno(new Aluno("Carol","41 99999999",
+        alunoDAO.salvarAluno(new Aluno("Carol", "41 99999999",
                 "exemploemail@gmail.com"));
     }
 
@@ -51,31 +51,42 @@ public class MainActivity extends AppCompatActivity {
         botaoCadastrarAluno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                abreCadastroActivity();
+                abreFormularioCadastraAluno();
             }
         });
     }
 
-    private void abreCadastroActivity() {
-        startActivity(new Intent(this, CadastroActivity.class));
+    private void abreFormularioCadastraAluno() {
+        startActivity(new Intent(this, FormularioAlunoActivity.class));
     }
 
     private void configuraLista() {
         ListView listaAlunos = findViewById(R.id.activity_main_lista_alunos);
         final List<Aluno> alunos = alunoDAO.getAlunos();
+        configuraAdapter(listaAlunos, alunos);
+
+        configuraCliqueDeListenerPorItem(listaAlunos);
+
+    }
+
+    private void configuraCliqueDeListenerPorItem(ListView listaAlunos) {
+        listaAlunos.setOnItemClickListener((adapterView, view, posicao, id) -> {
+            Aluno alunoEscolhido = (Aluno) adapterView.getItemAtPosition(posicao);
+            Log.d(TAG, "Aluno: " + alunoEscolhido);
+
+            abreFormularioEditaAluno(alunoEscolhido);
+        });
+    }
+
+    private void abreFormularioEditaAluno(Aluno alunoEscolhido) {
+        Intent intent = new Intent(this, FormularioAlunoActivity.class);
+        intent.putExtra(CHAVE_ALUNO, alunoEscolhido);
+        startActivity(intent);
+    }
+
+    private void configuraAdapter(ListView listaAlunos, List<Aluno> alunos) {
         listaAlunos.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1,
                 alunos));
-
-        listaAlunos.setOnItemClickListener((adapterView, view, posicao, id) -> {
-            Aluno alunoEscolhido = alunos.get(posicao);
-            Log.d(TAG, "Aluno: " + alunoEscolhido);
-
-            Intent intent = new Intent(this, CadastroActivity.class);
-            intent.putExtra("aluno", alunoEscolhido);
-            startActivity(intent);
-
-        });
-
     }
 }
