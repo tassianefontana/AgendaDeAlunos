@@ -22,17 +22,17 @@ import br.com.tassicompany.agendadealunos.R;
 import br.com.tassicompany.agendadealunos.dao.AlunoDAO;
 import br.com.tassicompany.agendadealunos.model.Aluno;
 
-public class MainActivity extends AppCompatActivity {
+public class ListaAlunosActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Lista de alunos";
-    public final String TAG = MainActivity.class.getSimpleName();
+    public final String TAG = ListaAlunosActivity.class.getSimpleName();
     private final AlunoDAO alunoDAO = new AlunoDAO();
     private ArrayAdapter<Aluno> adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_lista_alunos);
         setTitle(TITULO_APPBAR);
 
         configuraNovoAluno();
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        if(item.getTitle().equals("remover")) {
+        if (item.getItemId() == R.id.activity_lista_alunos_menu_remover) {
             AdapterView.AdapterContextMenuInfo adapterContextMenuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             Aluno alunoEscolhido = adapter.getItem(adapterContextMenuInfo.position);
             removeAluno(alunoEscolhido);
