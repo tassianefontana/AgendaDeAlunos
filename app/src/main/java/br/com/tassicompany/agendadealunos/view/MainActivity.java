@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle(TITULO_APPBAR);
 
         configuraNovoAluno();
+        configuraLista();
 
         alunoDAO.salvarAluno(new Aluno("Tassiane", "41 99999999",
                 "tassiane.fontana@gmail.com"));
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        configuraLista();
+        adapter.clear();
+        adapter.addAll(alunoDAO.getAlunos());
     }
 
     private void configuraNovoAluno() {
@@ -63,17 +65,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void configuraLista() {
         ListView listaAlunos = findViewById(R.id.activity_main_lista_alunos);
-        final List<Aluno> alunos = alunoDAO.getAlunos();
-        configuraAdapter(listaAlunos, alunos);
-
+        configuraAdapter(listaAlunos);
         configuraCliqueDeListenerPorItem(listaAlunos);
 
+        configuraListenerCliqueLongoPorItem(listaAlunos);
+    }
+
+    private void configuraListenerCliqueLongoPorItem(ListView listaAlunos) {
         listaAlunos.setOnItemLongClickListener((adapterView, view, position, id) -> {
             Aluno alunoEscolhido = (Aluno) adapterView.getItemAtPosition(position);
-            alunoDAO.remove(alunoEscolhido);
-            adapter.remove(alunoEscolhido);
+            removeAluno(alunoEscolhido);
             return true;
         });
+    }
+
+    private void removeAluno(Aluno aluno) {
+        alunoDAO.remove(aluno);
+        adapter.remove(aluno);
     }
 
     private void configuraCliqueDeListenerPorItem(ListView listaAlunos) {
@@ -91,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void configuraAdapter(ListView listaAlunos, List<Aluno> alunos) {
+    private void configuraAdapter(ListView listaAlunos) {
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         listaAlunos.setAdapter(adapter);
     }
 }
