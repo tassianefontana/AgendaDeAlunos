@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,13 +71,17 @@ public class FormularioAlunoActivity extends AppCompatActivity {
 
     private void finalizaFormulario() {
         preencheAluno();
-        if (alunoCadastrado.temIdValido()) {
-            alunoDAO.editarAluno(alunoCadastrado);
+        if (alunoCadastrado.getNome().isEmpty() && alunoCadastrado.getTelefone().isEmpty() &&
+                alunoCadastrado.getEmail().isEmpty()) {
+            Toast.makeText(this, "Preencha os campos!", Toast.LENGTH_LONG).show();
         } else {
-            alunoDAO.salvarAluno(alunoCadastrado);
+            if (alunoCadastrado.temIdValido()) {
+                alunoDAO.editarAluno(alunoCadastrado);
+            } else {
+                alunoDAO.salvarAluno(alunoCadastrado);
+            }
+            finish();
         }
-
-        finish();
     }
 
     private void inicializacaoDosCampos() {
