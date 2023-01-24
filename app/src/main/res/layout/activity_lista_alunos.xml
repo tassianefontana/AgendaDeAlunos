@@ -16,7 +16,7 @@
         android:layout_marginBottom="25dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/ic_action_novo_aluno"
+        android:src="@mipmap/ic_action_novo_aluno"
         app:tint="@color/white"
         app:backgroundTint="@color/pink"
         app:ensureMinTouchTargetSize="true"/>

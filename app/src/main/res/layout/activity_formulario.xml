@@ -6,7 +6,7 @@
 
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <EditText
@@ -15,7 +15,7 @@
         android:layout_height="48dp"
         android:layout_margin="8dp"
         android:inputType="textPersonName"
-        android:hint="Nome do aluno"/>
+        android:hint="@string/nome_do_aluno"/>
 
     <EditText
         android:id="@+id/cadastro_activity_etTelefone"
@@ -23,7 +23,7 @@
         android:layout_height="48dp"
         android:layout_margin="8dp"
         android:inputType="phone"
-        android:hint="Telefone: "/>
+        android:hint="@string/telefone"/>
 
     <EditText
         android:id="@+id/cadastro_activity_etEmail"
@@ -31,14 +31,7 @@
         android:layout_height="48dp"
         android:layout_margin="8dp"
         android:inputType="textEmailAddress"
-        android:hint="E-mail:" />
-
-    <Button
-        android:id="@+id/btn_salvar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="Cadastrar aluno" />
+        android:hint="@string/e_mail" />
 
 
 </LinearLayout>

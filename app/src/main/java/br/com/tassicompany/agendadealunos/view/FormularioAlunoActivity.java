@@ -4,9 +4,13 @@ import static br.com.tassicompany.agendadealunos.view.ConstantesActivities.CHAVE
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.tassicompany.agendadealunos.R;
@@ -26,11 +30,25 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro);
+        setContentView(R.layout.activity_formulario);
 
         inicializacaoDosCampos();
-        configuraBotaoSalvar();
         carregaAluno();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.activity_formulario_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.activity_formulario_menu_salvar) {
+            finalizaFormulario();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void carregaAluno() {
@@ -49,13 +67,6 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         etNome.setText(alunoCadastrado.getNome());
         etTelefone.setText(alunoCadastrado.getTelefone());
         etEmail.setText(alunoCadastrado.getEmail());
-    }
-
-    private void configuraBotaoSalvar() {
-        Button btnSalvar = findViewById(R.id.btn_salvar);
-        btnSalvar.setOnClickListener(view -> {
-            finalizaFormulario();
-        });
     }
 
     private void finalizaFormulario() {
