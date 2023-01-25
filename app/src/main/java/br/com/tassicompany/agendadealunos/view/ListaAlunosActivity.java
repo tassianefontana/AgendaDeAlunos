@@ -2,6 +2,7 @@ package br.com.tassicompany.agendadealunos.view;
 
 import static br.com.tassicompany.agendadealunos.view.ConstantesActivities.CHAVE_ALUNO;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +10,6 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -21,27 +21,25 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import br.com.tassicompany.agendadealunos.R;
 import br.com.tassicompany.agendadealunos.dao.AlunoDAO;
 import br.com.tassicompany.agendadealunos.model.Aluno;
+import br.com.tassicompany.agendadealunos.view.adapter.ListaAlunosAdapter;
 
 public class ListaAlunosActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Lista de alunos";
     public final String TAG = ListaAlunosActivity.class.getSimpleName();
     private final AlunoDAO alunoDAO = new AlunoDAO();
-    private ArrayAdapter<Aluno> adapter;
+    private ListaAlunosAdapter adapter;
+    private Context mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
         setTitle(TITULO_APPBAR);
-
+        mContext = this.getApplicationContext();
         configuraNovoAluno();
         configuraLista();
 
-        alunoDAO.salvarAluno(new Aluno("Tassiane", "41 99999999",
-                "tassiane.fontana@gmail.com"));
-        alunoDAO.salvarAluno(new Aluno("Carol", "41 99999999",
-                "exemploemail@gmail.com"));
     }
 
     @Override
@@ -63,8 +61,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.clear();
-        adapter.addAll(alunoDAO.getAlunos());
+        adapter.AtualizaListaAlunos(alunoDAO.getAlunos());
     }
 
     private void configuraNovoAluno() {
@@ -109,7 +106,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     }
 
     private void configuraAdapter(ListView listaAlunos) {
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        adapter = new ListaAlunosAdapter(mContext);
         listaAlunos.setAdapter(adapter);
     }
 }
