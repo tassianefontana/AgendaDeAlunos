@@ -6,7 +6,8 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import br.com.tassicompany.agendadealunos.dao.AlunoDAO;
+import br.com.tassicompany.agendadealunos.database.AgendaDatabase;
+import br.com.tassicompany.agendadealunos.database.dao.AlunoDAO;
 import br.com.tassicompany.agendadealunos.model.Aluno;
 import br.com.tassicompany.agendadealunos.view.adapter.ListaAlunosAdapter;
 
@@ -19,7 +20,7 @@ public class ListaAlunosView {
     public ListaAlunosView(Context context) {
         this.context = context;
         this.adapter = new ListaAlunosAdapter(this.context);
-        this.alunoDAO = new AlunoDAO();
+        this.alunoDAO = AgendaDatabase.getInstance(context).getRoomAlunoDAO();
     }
 
     public void confirmaRemocao(final MenuItem item) {

@@ -22,12 +22,13 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     private static final String TITULO_APPBAR = "Lista de alunos";
     private final String TAG = ListaAlunosActivity.class.getSimpleName();
-    private final ListaAlunosView listaAlunosView = new ListaAlunosView(this);
+    private ListaAlunosView listaAlunosView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
+        listaAlunosView = new ListaAlunosView(this);
         setTitle(TITULO_APPBAR);
         configuraNovoAluno();
         configuraLista();

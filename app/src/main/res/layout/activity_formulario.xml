@@ -19,6 +19,15 @@
         android:importantForAutofill="no" />
 
     <EditText
+        android:id="@+id/cadastro_activity_etSobrenome"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:inputType="textPersonName"
+        android:hint="@string/sobrenome_do_aluno"
+        android:importantForAutofill="no" />
+
+    <EditText
         android:id="@+id/cadastro_activity_etTelefone"
         android:layout_width="match_parent"
         android:layout_height="48dp"

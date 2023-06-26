@@ -5,4 +5,5 @@
     <string name="e_mail">E-mail:</string>
     <string name="telefone">Telefone:</string>
     <string name="nome_do_aluno">Nome do aluno</string>
+    <string name="sobrenome_do_aluno">Sobrenome</string>
 </resources>
