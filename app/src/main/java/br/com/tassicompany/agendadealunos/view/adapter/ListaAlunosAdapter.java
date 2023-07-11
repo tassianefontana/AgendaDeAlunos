@@ -1,5 +1,6 @@
 package br.com.tassicompany.agendadealunos.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,10 +46,11 @@ public class ListaAlunosAdapter extends BaseAdapter {
         return viewCriada;
     }
 
+    @SuppressLint("SetTextI18n")
     private void vinculaDados(int posicao, View viewCriada) {
         Aluno alunoDevolvido = alunos.get(posicao);
         TextView nome = viewCriada.findViewById(R.id.item_aluno_nome);
-        nome.setText(alunoDevolvido.getNomeCompleto());
+        nome.setText(alunoDevolvido.getNomeCompleto() + " " + alunoDevolvido.dataFormatada());
         TextView telefone = viewCriada.findViewById(R.id.item_aluno_telefone);
         telefone.setText(alunoDevolvido.getTelefone());
     }

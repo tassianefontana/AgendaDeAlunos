@@ -23,7 +23,6 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private static final String TITULO_APPBAR_EDITA_ALUNO = "Novo Aluno";
     private static final String TITULO_APPBAR_NOVO_ALUNO = "Editar Aluno";
     private EditText etNome;
-    private EditText etSobrenome;
     private EditText etTelefone;
     private EditText etEmail;
     private AlunoDAO alunoDAO;
@@ -68,7 +67,6 @@ public class FormularioAlunoActivity extends AppCompatActivity {
 
     private void preencheCampos() {
         etNome.setText(alunoCadastrado.getNome());
-        etSobrenome.setText(alunoCadastrado.getSobrenome());
         etTelefone.setText(alunoCadastrado.getTelefone());
         etEmail.setText(alunoCadastrado.getEmail());
     }
@@ -90,19 +88,16 @@ public class FormularioAlunoActivity extends AppCompatActivity {
 
     private void inicializacaoDosCampos() {
         etNome = findViewById(R.id.cadastro_activity_etNome);
-        etSobrenome = findViewById(R.id.cadastro_activity_etSobrenome);
         etTelefone = findViewById(R.id.cadastro_activity_etTelefone);
         etEmail = findViewById(R.id.cadastro_activity_etEmail);
     }
 
     private void preencheAluno() {
         String nome = etNome.getText().toString();
-        String sobrenome = etSobrenome.getText().toString();
         String telefone = etTelefone.getText().toString();
         String email = etEmail.getText().toString();
 
         alunoCadastrado.setNome(nome);
-        alunoCadastrado.setSobrenome(sobrenome);
         alunoCadastrado.setTelefone(telefone);
         alunoCadastrado.setEmail(email);
     }

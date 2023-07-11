@@ -6,24 +6,32 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 @Entity
 public class Aluno implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     int id = 0;
-    String nome;
-
-    String sobrenome;
-
-    String telefone;
-    String email;
+    private String nome;
+    private String telefone;
+    private String email;
+    private Calendar momentoCadastro = Calendar.getInstance();
 
     @Ignore
     public Aluno(String nome, String telefone, String email) {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
+    }
+
+    public Calendar getMomentoCadastro() {
+        return momentoCadastro;
+    }
+
+    public void setMomentoCadastro(Calendar momentoCadastro) {
+        this.momentoCadastro = momentoCadastro;
     }
 
     public Aluno() {
@@ -35,14 +43,6 @@ public class Aluno implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
     }
 
     public String getTelefone() {
@@ -80,6 +80,11 @@ public class Aluno implements Serializable {
     }
 
     public String getNomeCompleto() {
-        return nome + " " + sobrenome;
+        return nome;
+    }
+
+    public String dataFormatada(){
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        return formatador.format(momentoCadastro.getTime());
     }
 }
