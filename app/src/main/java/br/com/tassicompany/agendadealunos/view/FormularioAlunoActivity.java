@@ -23,7 +23,8 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private static final String TITULO_APPBAR_EDITA_ALUNO = "Editar Aluno";
     private static final String TITULO_APPBAR_NOVO_ALUNO = "Novo Aluno";
     private EditText etNome;
-    private EditText etTelefone;
+    private EditText etTelefoneFixo;
+    private EditText etTelefoneCelular;
     private EditText etEmail;
     private AlunoDAO alunoDAO;
     private Aluno alunoCadastrado;
@@ -67,14 +68,15 @@ public class FormularioAlunoActivity extends AppCompatActivity {
 
     private void preencheCampos() {
         etNome.setText(alunoCadastrado.getNome());
-        etTelefone.setText(alunoCadastrado.getTelefone());
+        etTelefoneCelular.setText(alunoCadastrado.getTelefoneCelular());
+        etTelefoneFixo.setText(alunoCadastrado.getTelefoneFixo());
         etEmail.setText(alunoCadastrado.getEmail());
     }
 
     private void finalizaFormulario() {
         preencheAluno();
-        if (alunoCadastrado.getNome().isEmpty() && alunoCadastrado.getTelefone().isEmpty() &&
-                alunoCadastrado.getEmail().isEmpty()) {
+        if (alunoCadastrado.getNome().isEmpty() && alunoCadastrado.getTelefoneFixo().isEmpty() &&
+                alunoCadastrado.getEmail().isEmpty() && alunoCadastrado.getTelefoneCelular().isEmpty()) {
             Toast.makeText(this, "Preencha os campos!", Toast.LENGTH_LONG).show();
         } else {
             if (alunoCadastrado.temIdValido()) {
@@ -88,17 +90,20 @@ public class FormularioAlunoActivity extends AppCompatActivity {
 
     private void inicializacaoDosCampos() {
         etNome = findViewById(R.id.cadastro_activity_etNome);
-        etTelefone = findViewById(R.id.cadastro_activity_etTelefone);
+        etTelefoneFixo = findViewById(R.id.cadastro_activity_etTelefoneFixo);
+        etTelefoneCelular = findViewById(R.id.cadastro_activity_etTelefoneCelular);
         etEmail = findViewById(R.id.cadastro_activity_etEmail);
     }
 
     private void preencheAluno() {
         String nome = etNome.getText().toString();
-        String telefone = etTelefone.getText().toString();
+        String telefoneFixo = etTelefoneFixo.getText().toString();
+        String telefoneCelular = etTelefoneCelular.getText().toString();
         String email = etEmail.getText().toString();
 
         alunoCadastrado.setNome(nome);
-        alunoCadastrado.setTelefone(telefone);
+        alunoCadastrado.setTelefoneFixo(telefoneFixo);
+        alunoCadastrado.setTelefoneCelular(telefoneCelular);
         alunoCadastrado.setEmail(email);
     }
 }

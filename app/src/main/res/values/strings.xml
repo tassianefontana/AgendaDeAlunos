@@ -2,8 +2,9 @@
     <string name="app_name">AgendaDeAlunos</string>
     <string name="remover">Remover</string>
     <string name="salvar">Salvar</string>
-    <string name="e_mail">E-mail:</string>
-    <string name="telefone">Telefone:</string>
+    <string name="e_mail">E-mail</string>
+    <string name="telefone_celular">Telefone celular</string>
     <string name="nome_do_aluno">Nome do aluno</string>
     <string name="sobrenome_do_aluno">Sobrenome</string>
+    <string name="telefone_fixo">Telefone fixo</string>
 </resources>

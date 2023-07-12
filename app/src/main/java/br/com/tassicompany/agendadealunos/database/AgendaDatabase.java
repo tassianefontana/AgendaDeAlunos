@@ -13,7 +13,7 @@ import br.com.tassicompany.agendadealunos.database.converter.ConversorCalendar;
 import br.com.tassicompany.agendadealunos.database.dao.AlunoDAO;
 import br.com.tassicompany.agendadealunos.model.Aluno;
 
-@Database(entities = {Aluno.class}, version = 4, exportSchema = false)
+@Database(entities = {Aluno.class}, version = 5, exportSchema = false)
 @TypeConverters( {ConversorCalendar.class})
 public abstract class AgendaDatabase extends RoomDatabase {
     private static final String NOME_BANCO_DE_DADOS ="agenda.db";

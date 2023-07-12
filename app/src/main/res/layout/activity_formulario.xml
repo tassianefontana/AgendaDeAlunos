@@ -28,12 +28,21 @@
 <!--        android:importantForAutofill="no" />-->
 
     <EditText
-        android:id="@+id/cadastro_activity_etTelefone"
+        android:id="@+id/cadastro_activity_etTelefoneCelular"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_margin="8dp"
         android:inputType="phone"
-        android:hint="@string/telefone"
+        android:hint="@string/telefone_celular"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/cadastro_activity_etTelefoneFixo"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:inputType="phone"
+        android:hint="@string/telefone_fixo"
         android:importantForAutofill="no" />
 
     <EditText
