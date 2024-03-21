@@ -1,8 +1,12 @@
 package br.com.tassicompany.agendadealunos.database;
 
+import static br.com.tassicompany.agendadealunos.model.TipoTelefone.FIXO;
+
 import androidx.annotation.NonNull;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import br.com.tassicompany.agendadealunos.model.TipoTelefone;
 
 class AgendaMigrations {
 
@@ -56,5 +60,33 @@ class AgendaMigrations {
             database.execSQL("ALTER TABLE AlunoNovo RENAME TO Aluno");
         }
     };
-    static final Migration[] TODAS_MIGRATIONS = {MIGRATION_1_2,MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5};
+    private static final Migration MIGRATION_5_6 = new Migration(5,6) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `Aluno_novo` (" +
+                    "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "`nome` TEXT, " +
+                    "`email` TEXT, " +
+                    "`momentoCadastro` INTEGER)");
+
+            database.execSQL("INSERT INTO Aluno_novo (id, nome, email, momentoCadastro)" +
+                    " SELECT id, nome, email, momentoCadastro FROM Aluno");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `Telefone` (" +
+                    "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "`numero` TEXT, " +
+                    "`tipo` TEXT," +
+                    "`alunoId` INTEGER NOT NULL)");
+
+            database.execSQL("INSERT INTO Telefone (numero, alunoId)" +
+                    " SELECT telefoneFixo, id FROM Aluno");
+
+            database.execSQL("UPDATE Telefone SET tipo = ?", new TipoTelefone[] {FIXO});
+
+            database.execSQL("DROP TABLE Aluno");
+
+            database.execSQL("ALTER TABLE Aluno_novo RENAME TO Aluno");
+        }
+    };
+    static final Migration[] TODAS_MIGRATIONS = {MIGRATION_1_2,MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6};
 }

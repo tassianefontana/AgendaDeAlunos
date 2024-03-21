@@ -10,14 +10,19 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import br.com.tassicompany.agendadealunos.database.converter.ConversorCalendar;
+import br.com.tassicompany.agendadealunos.database.converter.ConversorTipoTelefone;
 import br.com.tassicompany.agendadealunos.database.dao.AlunoDAO;
+import br.com.tassicompany.agendadealunos.database.dao.TelefoneDAO;
 import br.com.tassicompany.agendadealunos.model.Aluno;
+import br.com.tassicompany.agendadealunos.model.Telefone;
 
-@Database(entities = {Aluno.class}, version = 5, exportSchema = false)
-@TypeConverters( {ConversorCalendar.class})
-public abstract class AgendaDatabase extends RoomDatabase {
+@Database(entities = {Aluno.class, Telefone.class}, version = 6, exportSchema = false)
+@TypeConverters( {ConversorCalendar.class, ConversorTipoTelefone.class})
+public abstract class
+AgendaDatabase extends RoomDatabase {
     private static final String NOME_BANCO_DE_DADOS ="agenda.db";
-
+    public abstract AlunoDAO getAlunoDAO();
+    public abstract TelefoneDAO getTelefoneDAO();
 
     public static AgendaDatabase getInstance(Context context) {
         return Room.databaseBuilder(context, AgendaDatabase.class, NOME_BANCO_DE_DADOS)
@@ -27,5 +32,4 @@ public abstract class AgendaDatabase extends RoomDatabase {
                 .build();
     }
 
-    public abstract AlunoDAO getRoomAlunoDAO();
 }

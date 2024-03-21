@@ -13,7 +13,7 @@ import br.com.tassicompany.agendadealunos.model.Aluno;
 @Dao
 public interface AlunoDAO {
     @Insert
-    void salvarAluno(Aluno aluno);
+    Long salvarAluno(Aluno aluno);
 
     @Query("SELECT * FROM aluno")
     List<Aluno> getAlunos();

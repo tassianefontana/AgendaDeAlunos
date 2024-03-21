@@ -1,4 +1,4 @@
-package br.com.tassicompany.agendadealunos.view;
+package br.com.tassicompany.agendadealunos;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -6,10 +6,12 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import br.com.tassicompany.agendadealunos.asynctask.BuscaAlunoTask;
 import br.com.tassicompany.agendadealunos.database.AgendaDatabase;
 import br.com.tassicompany.agendadealunos.database.dao.AlunoDAO;
 import br.com.tassicompany.agendadealunos.model.Aluno;
 import br.com.tassicompany.agendadealunos.view.adapter.ListaAlunosAdapter;
+import br.com.tassicompany.agendadealunos.asynctask.RemoveAlunoTask;
 
 public class ListaAlunosView {
 
@@ -20,7 +22,7 @@ public class ListaAlunosView {
     public ListaAlunosView(Context context) {
         this.context = context;
         this.adapter = new ListaAlunosAdapter(this.context);
-        this.alunoDAO = AgendaDatabase.getInstance(context).getRoomAlunoDAO();
+        this.alunoDAO = AgendaDatabase.getInstance(context).getAlunoDAO();
     }
 
     public void confirmaRemocao(final MenuItem item) {
@@ -38,12 +40,13 @@ public class ListaAlunosView {
     }
 
     public void atualizaAlunos() {
-        adapter.AtualizaListaAlunos(alunoDAO.getAlunos());
+        //Método execute cria uma thread paralela para rodar simultaneamente à main thread
+        new BuscaAlunoTask(alunoDAO, adapter).execute();
+
     }
 
     private void removeAluno(Aluno aluno) {
-        alunoDAO.remove(aluno);
-        adapter.remove(aluno);
+        new RemoveAlunoTask(aluno, alunoDAO, adapter).execute();
     }
 
     public void configuraAdapter(ListView listaAlunos) {

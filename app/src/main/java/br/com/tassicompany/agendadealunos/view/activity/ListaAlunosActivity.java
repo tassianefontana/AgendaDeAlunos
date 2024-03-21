@@ -1,6 +1,6 @@
-package br.com.tassicompany.agendadealunos.view;
+package br.com.tassicompany.agendadealunos.view.activity;
 
-import static br.com.tassicompany.agendadealunos.view.ConstantesActivities.CHAVE_ALUNO;
+import static br.com.tassicompany.agendadealunos.view.activity.ConstantesActivities.CHAVE_ALUNO;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import br.com.tassicompany.agendadealunos.R;
 import br.com.tassicompany.agendadealunos.model.Aluno;
+import br.com.tassicompany.agendadealunos.ListaAlunosView;
 
 public class ListaAlunosActivity extends AppCompatActivity {
 
